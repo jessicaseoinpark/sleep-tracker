@@ -1,14 +1,13 @@
 # Sleep Tracker
 
-Private-by-device bilingual sleep tracker for Seoul and Tennessee Central.
+Mobile-first bilingual sleep diary PWA.
 
-## Data privacy
-Sleep logs and CBT-I notes are stored in the browser on each device using localStorage. They are not committed to this GitHub repository.
+- Korean / English
+- Seoul / Tennessee Central
+- Local-only storage in the browser
+- JSON backup / restore
+- Optional partner share marker
+- Recommended bedtime based on recent average total sleep time
+- 12-hour AM/PM time pickers for both languages
 
-## GitHub Pages
-Settings → Pages → Deploy from a branch → `main` / `(root)` → Save.
-
-After deployment, open the Pages URL in Safari and use Share → Add to Home Screen.
-
-## Backup
-Use Settings → Export full backup regularly. Import the JSON file to restore data on another device.
+No personal sleep data is stored in this GitHub repository.
