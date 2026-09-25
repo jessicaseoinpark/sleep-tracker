@@ -20,3 +20,11 @@ Static mobile-first PWA for personal sleep tracking.
 ## v4 visual pass
 - Impeccable-led mobile polish with stronger hierarchy, night-to-morning palette, refined forms, and 3-tab app navigation.
 - No data model changes; existing localStorage records remain compatible.
+
+
+## v4.1
+- Added edit and delete controls for recent sleep logs.
+- Editing restores all saved fields, including sleep hygiene and optional Sleep Thoughts.
+- Added bilingual delete confirmation.
+- Fixed Korean text leaking into English mode in CBT thinking-pattern options and placeholders.
+- Language selector and quick language toggle now remain clean in English mode.

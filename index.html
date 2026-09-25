@@ -69,7 +69,7 @@
     </section>
 
     <section id="log" class="page">
-      <div class="page-heading"><button class="back-btn" data-go="home">‹</button><div><h2 data-ko="수면 기록" data-en="Sleep log">수면 기록</h2><p data-ko="어젯밤을 떠올리며 기록해 주세요." data-en="Record what you remember from last night.">어젯밤을 떠올리며 기록해 주세요.</p></div></div>
+      <div class="page-heading"><button class="back-btn" data-go="home">‹</button><div class="page-heading-copy"><h2 data-ko="수면 기록" data-en="Sleep log">수면 기록</h2><p data-ko="어젯밤을 떠올리며 기록해 주세요." data-en="Record what you remember from last night.">어젯밤을 떠올리며 기록해 주세요.</p></div><button id="cancelEdit" class="edit-cancel hidden" type="button" data-ko="수정 취소" data-en="Cancel edit">수정 취소</button></div>
       <form id="form">
         <section class="surface form-section"><label class="field"><span data-ko="날짜" data-en="Date">날짜</span><input id="date" type="date" required></label></section>
 
@@ -113,8 +113,8 @@
           <div id="thoughtFields" class="thought-fields hidden">
             <label class="field"><span data-ko="떠오른 생각" data-en="Thought">떠오른 생각</span><textarea id="thoughtText" rows="3"></textarea></label>
             <label class="field"><span data-ko="이 생각을 얼마나 사실이라고 느꼈나요? (0–10)" data-en="How true did this thought feel? (0–10)">이 생각을 얼마나 사실이라고 느꼈나요? (0–10)</span><input id="beliefBefore" type="range" min="0" max="10" value="5"><output id="beliefBeforeOut">5</output></label>
-            <div class="two-fields"><label class="field"><span data-ko="감정" data-en="Emotion">감정</span><input id="emotion" type="text" placeholder="불안 / Anxiety"></label><label class="field"><span data-ko="강도 (0–100%)" data-en="Intensity (0–100%)">강도 (0–100%)</span><input id="emotionIntensity" type="number" min="0" max="100" value="50"></label></div>
-            <label class="field"><span data-ko="가까운 사고 패턴" data-en="Closest thinking pattern">가까운 사고 패턴</span><select id="distortion"><option value="">-</option><option value="misattribution">잘못된 원인 탓하기 / Misattribution</option><option value="emotional">감정적 추론 / Emotional reasoning</option><option value="blackwhite">흑백논리 / All-or-nothing thinking</option><option value="fortune">예언하기 / Fortune telling</option><option value="catastrophe">파국화 / Catastrophizing</option><option value="generalization">과잉 일반화 / Overgeneralization</option><option value="expectation">비현실적 기대·통제 / Unrealistic expectation or control</option><option value="other">기타 / Other</option></select></label>
+            <div class="two-fields"><label class="field"><span data-ko="감정" data-en="Emotion">감정</span><input id="emotion" type="text" data-placeholder-ko="예: 불안" data-placeholder-en="e.g. Anxiety" placeholder="예: 불안"></label><label class="field"><span data-ko="강도 (0–100%)" data-en="Intensity (0–100%)">강도 (0–100%)</span><input id="emotionIntensity" type="number" min="0" max="100" value="50"></label></div>
+            <label class="field"><span data-ko="가까운 사고 패턴" data-en="Closest thinking pattern">가까운 사고 패턴</span><select id="distortion"><option value="">-</option><option value="misattribution" data-ko="잘못된 원인 탓하기" data-en="Misattribution">잘못된 원인 탓하기</option><option value="emotional" data-ko="감정적 추론" data-en="Emotional reasoning">감정적 추론</option><option value="blackwhite" data-ko="흑백논리" data-en="All-or-nothing thinking">흑백논리</option><option value="fortune" data-ko="예언하기" data-en="Fortune telling">예언하기</option><option value="catastrophe" data-ko="파국화" data-en="Catastrophizing">파국화</option><option value="generalization" data-ko="과잉 일반화" data-en="Overgeneralization">과잉 일반화</option><option value="expectation" data-ko="비현실적 기대·통제" data-en="Unrealistic expectation or control">비현실적 기대·통제</option><option value="other" data-ko="기타" data-en="Other">기타</option></select></label>
             <label class="field"><span data-ko="이 생각을 지지하는 근거" data-en="Evidence for the thought">이 생각을 지지하는 근거</span><textarea id="evidenceFor" rows="2"></textarea></label>
             <label class="field"><span data-ko="반대되는 근거" data-en="Evidence against the thought">반대되는 근거</span><textarea id="evidenceAgainst" rows="2"></textarea></label>
             <label class="field"><span data-ko="좀 더 균형 잡힌 생각" data-en="More balanced thought">좀 더 균형 잡힌 생각</span><textarea id="balancedThought" rows="3"></textarea></label>
@@ -124,14 +124,14 @@
 
         <section id="preview" class="calculation"></section>
         <label class="share-toggle"><input id="share" type="checkbox"><span><b data-ko="파트너 공유용 표시" data-en="Mark for partner sharing">파트너 공유용 표시</b><small data-ko="원할 때 이 기록만 공유할 수 있어요." data-en="Share only this entry when you choose.">원할 때 이 기록만 공유할 수 있어요.</small></span></label>
-        <button class="save-btn" type="submit" data-ko="수면 기록 저장" data-en="Save sleep log">수면 기록 저장</button>
+        <button id="submitLog" class="save-btn" type="submit" data-ko="수면 기록 저장" data-en="Save sleep log">수면 기록 저장</button>
       </form>
     </section>
 
     <section id="settings" class="page">
       <div class="page-heading"><div><h2 data-ko="설정" data-en="Settings">설정</h2><p data-ko="내 수면 기록 방식과 백업을 관리합니다." data-en="Manage tracking preferences and backups.">내 수면 기록 방식과 백업을 관리합니다.</p></div></div>
       <section class="surface settings-list">
-        <label><span><b data-ko="언어" data-en="Language">언어</b></span><select id="language"><option value="ko">한국어</option><option value="en">English</option></select></label>
+        <label><span><b data-ko="언어" data-en="Language">언어</b></span><select id="language"><option value="ko" data-ko="한국어" data-en="Korean">한국어</option><option value="en" data-ko="영어" data-en="English">영어</option></select></label>
         <label><span><b data-ko="시간대" data-en="Timezone">시간대</b></span><select id="timezone"><option value="Asia/Seoul">Seoul · Asia/Seoul</option><option value="America/Chicago">Tennessee · Central</option></select></label>
         <div class="setting-row"><span><b data-ko="고정 기상 시간" data-en="Fixed wake time">고정 기상 시간</b></span><div class="time-picker compact-picker" data-time="fixed"></div></div>
         <label><span><b data-ko="취침 계산 기준" data-en="Bedtime calculation">취침 계산 기준</b><small data-ko="최근 기록 수" data-en="Recent logs">최근 기록 수</small></span><input id="window" type="number" min="3" max="14" value="5"></label>
