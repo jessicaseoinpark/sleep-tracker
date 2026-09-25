@@ -1,4 +1,4 @@
-# Sleep Tracker v3
+# Sleep Tracker v4 · Impeccable visual pass
 
 Static mobile-first PWA for personal sleep tracking.
 
@@ -15,3 +15,8 @@ Static mobile-first PWA for personal sleep tracking.
 - Data remains on the device in localStorage unless exported manually.
 - The suggested bedtime is a tracking estimate, not a medical prescription.
 - Sleep restriction therapy is described educationally and should be individualized with safety in mind.
+
+
+## v4 visual pass
+- Impeccable-led mobile polish with stronger hierarchy, night-to-morning palette, refined forms, and 3-tab app navigation.
+- No data model changes; existing localStorage records remain compatible.
