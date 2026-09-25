@@ -1,13 +1,17 @@
-# Sleep Tracker
+# Sleep Tracker v3
 
-Mobile-first bilingual sleep diary PWA.
+Static mobile-first PWA for personal sleep tracking.
 
-- Korean / English
-- Seoul / Tennessee Central
-- Local-only storage in the browser
-- JSON backup / restore
-- Optional partner share marker
-- Recommended bedtime based on recent average total sleep time
-- 12-hour AM/PM time pickers for both languages
+## What changed in v3
+- Keeps Home / Log / Settings navigation.
+- Adds brief "Why log this?" explanations inside the sleep log.
+- Adds an optional CBT-I-inspired Sleep Thoughts reflection inside each log.
+- Adds optional sleep-hygiene check-in items without turning them into a perfection score.
+- Adds evidence-based Sleep Guide cards referencing AASM and NIH/NHLBI.
+- Suggested bedtime is withheld until the configured number of logs (default 5) is available.
+- Existing localStorage data key remains `sleepTrackerDataV1`, so prior sleep logs stay compatible.
 
-No personal sleep data is stored in this GitHub repository.
+## Notes
+- Data remains on the device in localStorage unless exported manually.
+- The suggested bedtime is a tracking estimate, not a medical prescription.
+- Sleep restriction therapy is described educationally and should be individualized with safety in mind.

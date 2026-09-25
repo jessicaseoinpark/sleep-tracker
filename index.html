@@ -1,6 +1,149 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f9ff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Sleep Tracker"><link rel="apple-touch-icon" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"><title>Sleep Tracker</title></head><body>
-<section id="welcome" class="welcome hidden"><div class="welcome-panel"><div class="brand-mark"><span></span></div><h1>Welcome to Sleep Tracker</h1><p>Choose your setup · 나에게 맞는 설정을 선택하세요</p><button class="profile-choice" data-profile="seoul"><span class="flag">🇰🇷</span><span><b>Seoul</b><small>한국어 · Asia/Seoul</small></span><span class="arrow">›</span></button><button class="profile-choice" data-profile="tennessee"><span class="flag">🇺🇸</span><span><b>Tennessee</b><small>English · Central Time</small></span><span class="arrow">›</span></button><small class="hint">Language and timezone can be changed later.</small></div></section>
-<div id="app" class="shell hidden"><header class="app-header"><div><h1 data-ko="수면 일지" data-en="Sleep Diary">수면 일지</h1><p id="headerDate"></p></div><button id="quickLang" class="language-btn">EN</button></header><main>
-<section id="home" class="page active"><section class="tonight"><p data-ko="오늘 밤" data-en="Tonight">오늘 밤</p><div class="tonight-row"><div><span data-ko="권장 취침 시각" data-en="Recommended bedtime">권장 취침 시각</span><strong id="rec">--:--</strong></div><button class="round-action" data-go="log">+</button></div><small id="basis"></small></section><section class="summary"><div><span data-ko="평균 수면" data-en="Avg sleep">평균 수면</span><b id="avg">--</b></div><div><span data-ko="수면 효율" data-en="Efficiency">수면 효율</span><b id="eff">--</b></div><div><span data-ko="행동점수" data-en="Behavior">행동점수</span><b id="beh">--</b></div></section><section class="surface chart-surface"><div class="section-title"><h2 data-ko="수면 효율" data-en="Sleep efficiency">수면 효율</h2><span data-ko="최근 14회" data-en="Last 14">최근 14회</span></div><canvas id="chart1"></canvas></section><section class="surface chart-surface"><div class="section-title"><h2 data-ko="수면 시간" data-en="Sleep duration">수면 시간</h2><span data-ko="실제 수면 · 침대 시간" data-en="Sleep · Time in bed">실제 수면 · 침대 시간</span></div><canvas id="chart2"></canvas></section><section class="recent"><div class="section-title"><h2 data-ko="최근 기록" data-en="Recent logs">최근 기록</h2></div><div id="recent"></div></section></section>
-<section id="log" class="page"><div class="page-heading"><button class="back-btn" data-go="home">‹</button><div><h2 data-ko="수면 기록" data-en="Sleep log">수면 기록</h2><p data-ko="어젯밤을 떠올리며 기록해 주세요." data-en="Record what you remember from last night.">어젯밤을 떠올리며 기록해 주세요.</p></div></div><form id="form"><section class="surface form-section"><label class="field"><span data-ko="날짜" data-en="Date">날짜</span><input id="date" type="date" required></label></section><section class="surface form-section"><h3 data-ko="수면 시간" data-en="Sleep timing">수면 시간</h3><div class="time-block"><span data-ko="누운 시간" data-en="Bed time">누운 시간</span><div class="time-picker" data-time="bed"></div></div><div class="time-block"><span data-ko="일어난 시간" data-en="Wake time">일어난 시간</span><div class="time-picker" data-time="wake"></div></div></section><section class="surface form-section"><h3 data-ko="밤 사이" data-en="During the night">밤 사이</h3><div class="number-row"><label><span data-ko="잠드는 데 걸린 시간" data-en="Sleep latency">잠드는 데 걸린 시간</span><small data-ko="분" data-en="min">분</small></label><input id="lat" type="number" min="0" max="720" value="0" required></div><div class="number-row"><label><span data-ko="중간에 깬 횟수" data-en="Awakenings">중간에 깬 횟수</span><small data-ko="회" data-en="times">회</small></label><input id="aw" type="number" min="0" max="50" value="0" required></div><div class="number-row"><label><span data-ko="깨어 있던 시간" data-en="Time awake">깨어 있던 시간</span><small data-ko="분" data-en="min">분</small></label><input id="waso" type="number" min="0" max="720" value="0" required></div></section><section class="surface form-section"><h3 data-ko="오늘 아침" data-en="This morning">오늘 아침</h3><div class="rating"><span data-ko="개운함" data-en="Freshness">개운함</span><div id="fresh" class="rating-buttons" data-value="3"></div></div><div class="rating"><span data-ko="기분" data-en="Mood">기분</span><div id="mood" class="rating-buttons" data-value="3"></div></div></section><section class="surface form-section"><h3 data-ko="생활 습관" data-en="Daily habits">생활 습관</h3><div class="habit-grid"><label class="habit"><input id="caf" type="checkbox"><span data-ko="카페인" data-en="Caffeine">카페인</span></label><label class="habit"><input id="alc" type="checkbox"><span data-ko="음주" data-en="Alcohol">음주</span></label><label class="habit"><input id="nap" type="checkbox"><span data-ko="낮잠" data-en="Nap">낮잠</span></label><label class="habit"><input id="ex" type="checkbox"><span data-ko="운동" data-en="Exercise">운동</span></label></div></section><section id="preview" class="calculation"></section><label class="share-toggle"><input id="share" type="checkbox"><span><b data-ko="파트너 공유용 표시" data-en="Mark for partner sharing">파트너 공유용 표시</b><small data-ko="원할 때 이 기록만 공유할 수 있어요." data-en="Share only this entry when you choose.">원할 때 이 기록만 공유할 수 있어요.</small></span></label><button class="save-btn" type="submit" data-ko="수면 기록 저장" data-en="Save sleep log">수면 기록 저장</button></form></section>
-<section id="settings" class="page"><div class="page-heading"><div><h2 data-ko="설정" data-en="Settings">설정</h2><p data-ko="내 수면 기록 방식과 백업을 관리합니다." data-en="Manage tracking preferences and backups.">내 수면 기록 방식과 백업을 관리합니다.</p></div></div><section class="surface settings-list"><label><span><b data-ko="언어" data-en="Language">언어</b></span><select id="language"><option value="ko">한국어</option><option value="en">English</option></select></label><label><span><b data-ko="시간대" data-en="Timezone">시간대</b></span><select id="timezone"><option value="Asia/Seoul">Seoul · Asia/Seoul</option><option value="America/Chicago">Tennessee · Central</option></select></label><div class="setting-row"><span><b data-ko="고정 기상 시간" data-en="Fixed wake time">고정 기상 시간</b></span><div class="time-picker compact-picker" data-time="fixed"></div></div><label><span><b data-ko="취침 계산 기준" data-en="Bedtime calculation">취침 계산 기준</b><small data-ko="최근 기록 수" data-en="Recent logs">최근 기록 수</small></span><input id="window" type="number" min="1" max="14" value="5"></label><button id="saveSettings" class="save-btn" data-ko="설정 저장" data-en="Save settings">설정 저장</button></section><section class="surface utility"><h3 data-ko="백업 및 복원" data-en="Backup & restore">백업 및 복원</h3><p id="backupStatus"></p><button id="exportBtn" class="secondary-btn" data-ko="전체 백업 내보내기" data-en="Export full backup">전체 백업 내보내기</button><label class="file-btn"><span data-ko="백업 불러오기" data-en="Import backup">백업 불러오기</span><input id="importFile" type="file" accept="application/json"></label></section><section class="surface utility"><h3 data-ko="파트너 공유" data-en="Partner sharing">파트너 공유</h3><p data-ko="공유 표시한 가장 최근 기록을 휴대폰 공유 메뉴로 보냅니다." data-en="Send the latest marked entry through your phone's share menu.">공유 표시한 가장 최근 기록을 휴대폰 공유 메뉴로 보냅니다.</p><button id="shareBtn" class="secondary-btn" data-ko="최근 공유 기록 보내기" data-en="Share latest marked log">최근 공유 기록 보내기</button></section></section></main><nav class="bottom-nav"><button class="active" data-go="home"><span class="nav-icon">⌂</span><span data-ko="홈" data-en="Home">홈</span></button><button data-go="log"><span class="nav-icon">＋</span><span data-ko="기록" data-en="Log">기록</span></button><button data-go="settings"><span class="nav-icon">⚙</span><span data-ko="설정" data-en="Settings">설정</span></button></nav></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4f8fc">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Sleep Tracker">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Sleep Tracker</title>
+</head>
+<body>
+<section id="welcome" class="welcome hidden">
+  <div class="welcome-panel">
+    <div class="brand-mark" aria-hidden="true"><span></span></div>
+    <h1>Welcome to Sleep Tracker</h1>
+    <p>Choose your setup · 나에게 맞는 설정을 선택하세요</p>
+    <button class="profile-choice" data-profile="seoul"><span><b>Seoul</b><small>한국어 · Asia/Seoul</small></span><span class="arrow">›</span></button>
+    <button class="profile-choice" data-profile="tennessee"><span><b>Tennessee</b><small>English · Central Time</small></span><span class="arrow">›</span></button>
+    <small class="hint">Language and timezone can be changed later.</small>
+  </div>
+</section>
+
+<div id="app" class="shell hidden">
+  <header class="app-header">
+    <div><h1 data-ko="수면 일지" data-en="Sleep Diary">수면 일지</h1><p id="headerDate"></p></div>
+    <button id="quickLang" class="language-btn">EN</button>
+  </header>
+
+  <main>
+    <section id="home" class="page active">
+      <section class="tonight">
+        <p data-ko="오늘 밤" data-en="Tonight">오늘 밤</p>
+        <div class="tonight-row">
+          <div><span data-ko="권장 취침 시각" data-en="Suggested bedtime">권장 취침 시각</span><strong id="rec">--:--</strong></div>
+          <button class="round-action" data-go="log" aria-label="Log today">+</button>
+        </div>
+        <small id="basis"></small>
+      </section>
+
+      <section class="summary" aria-label="Sleep summary">
+        <div><span data-ko="평균 수면" data-en="Avg sleep">평균 수면</span><b id="avg">--</b></div>
+        <div><span data-ko="수면 효율" data-en="Efficiency">수면 효율</span><b id="eff">--</b></div>
+        <div><span data-ko="평균 입면" data-en="Avg latency">평균 입면</span><b id="avgLatency">--</b></div>
+      </section>
+
+      <section class="surface chart-surface"><div class="section-title"><h2 data-ko="수면 효율" data-en="Sleep efficiency">수면 효율</h2><span data-ko="최근 14회" data-en="Last 14">최근 14회</span></div><canvas id="chart1"></canvas></section>
+      <section class="surface chart-surface"><div class="section-title"><h2 data-ko="수면 시간" data-en="Sleep duration">수면 시간</h2><span data-ko="실제 수면 · 침대 시간" data-en="Sleep · Time in bed">실제 수면 · 침대 시간</span></div><canvas id="chart2"></canvas></section>
+
+      <section class="surface insight-surface">
+        <div class="section-title"><h2 data-ko="내 기록에서 보이는 패턴" data-en="Patterns in your logs">내 기록에서 보이는 패턴</h2></div>
+        <div id="patternInsight" class="insight-copy"></div>
+        <small data-ko="관찰된 연관성일 뿐 원인을 증명하지는 않습니다." data-en="These are associations in your logs, not proof of cause.">관찰된 연관성일 뿐 원인을 증명하지는 않습니다.</small>
+      </section>
+
+      <section class="recent"><div class="section-title"><h2 data-ko="최근 기록" data-en="Recent logs">최근 기록</h2></div><div id="recent"></div></section>
+
+      <section class="learn-section">
+        <div class="section-title"><h2 data-ko="수면 가이드" data-en="Sleep guide">수면 가이드</h2><span data-ko="AASM · NIH 참고" data-en="AASM · NIH references">AASM · NIH 참고</span></div>
+        <details class="guide-card"><summary data-ko="수면일지는 왜 쓰나요?" data-en="Why keep a sleep diary?">수면일지는 왜 쓰나요?</summary><p data-ko="수면 시간과 낮의 습관을 함께 기록하면 반복되는 패턴을 찾고 치료나 상담에 활용할 수 있습니다." data-en="Tracking sleep timing and daytime habits can reveal patterns and provide useful information for care.">수면 시간과 낮의 습관을 함께 기록하면 반복되는 패턴을 찾고 치료나 상담에 활용할 수 있습니다.</p><a href="https://www.nhlbi.nih.gov/health/insomnia/diagnosis" target="_blank" rel="noopener">NIH / NHLBI</a></details>
+        <details class="guide-card"><summary data-ko="침대와 잠의 연결" data-en="Bed = sleep connection">침대와 잠의 연결</summary><p data-ko="자극조절은 졸릴 때 침대에 가고, 잠들기 어렵다면 잠시 침대에서 나와 졸릴 때 돌아오는 방식으로 침대와 수면의 연결을 강화합니다." data-en="Stimulus control strengthens the bed-sleep connection by going to bed when sleepy and leaving the bed when unable to sleep, returning when sleepy again.">자극조절은 졸릴 때 침대에 가고, 잠들기 어렵다면 잠시 침대에서 나와 졸릴 때 돌아오는 방식으로 침대와 수면의 연결을 강화합니다.</p><a href="https://aasm.org/wp-content/uploads/2021/08/Behavioral-and-Psychological-Treatments-for-Insomnia-Patient-Guide.pdf" target="_blank" rel="noopener">AASM</a></details>
+        <details class="guide-card"><summary data-ko="수면위생은 어떤 역할을 하나요?" data-en="What does sleep hygiene do?">수면위생은 어떤 역할을 하나요?</summary><p data-ko="규칙적인 일정, 편안하고 어둡고 조용한 환경, 카페인·니코틴·알코올 관리, 규칙적인 활동은 건강한 수면을 돕습니다. 다만 만성 불면에는 수면위생만 단독으로 쓰기보다 CBT-I 같은 다요소 접근이 권고됩니다." data-en="A regular schedule, a comfortable dark and quiet room, managing caffeine/nicotine/alcohol, and regular activity can support sleep. For chronic insomnia, sleep hygiene alone is not considered a complete treatment; multi-component CBT-I is preferred.">규칙적인 일정, 편안하고 어둡고 조용한 환경, 카페인·니코틴·알코올 관리, 규칙적인 활동은 건강한 수면을 돕습니다. 다만 만성 불면에는 수면위생만 단독으로 쓰기보다 CBT-I 같은 다요소 접근이 권고됩니다.</p><a href="https://www.nhlbi.nih.gov/health/insomnia/treatment" target="_blank" rel="noopener">NIH / NHLBI</a></details>
+        <details class="guide-card"><summary data-ko="생각도 잠에 영향을 주나요?" data-en="Can thoughts affect sleep?">생각도 잠에 영향을 주나요?</summary><p data-ko="CBT-I의 인지치료는 잠에 대한 걱정, 비현실적인 기대, 통제하려는 생각처럼 수면을 방해할 수 있는 사고를 점검하고 보다 균형 잡힌 관점으로 바꾸는 것을 돕습니다." data-en="The cognitive part of CBT-I addresses worries, unrealistic expectations, and unhelpful beliefs about sleep, helping you develop a more balanced perspective.">CBT-I의 인지치료는 잠에 대한 걱정, 비현실적인 기대, 통제하려는 생각처럼 수면을 방해할 수 있는 사고를 점검하고 보다 균형 잡힌 관점으로 바꾸는 것을 돕습니다.</p><a href="https://aasm.org/coding-quarterly-cognitive-behavioral-therapy-for-insomnia/" target="_blank" rel="noopener">AASM</a></details>
+        <details class="guide-card"><summary data-ko="수면시간 제한은 어떻게 봐야 하나요?" data-en="What about sleep restriction?">수면시간 제한은 어떻게 봐야 하나요?</summary><p data-ko="CBT-I의 수면제한요법은 수면일지에 근거해 침대에 머무는 시간을 조정해 수면을 응축하는 치료 기법입니다. 초기에는 피로가 늘 수 있어 개인의 상황과 안전을 고려해 전문적인 안내와 함께 적용하는 것이 좋습니다." data-en="Sleep restriction therapy adjusts time in bed using sleep-diary data to consolidate sleep. It can temporarily increase fatigue, so personal safety and clinical context matter and professional guidance is appropriate.">CBT-I의 수면제한요법은 수면일지에 근거해 침대에 머무는 시간을 조정해 수면을 응축하는 치료 기법입니다. 초기에는 피로가 늘 수 있어 개인의 상황과 안전을 고려해 전문적인 안내와 함께 적용하는 것이 좋습니다.</p><a href="https://aasm.org/wp-content/uploads/2021/08/Behavioral-and-Psychological-Treatments-for-Insomnia-Patient-Guide.pdf" target="_blank" rel="noopener">AASM</a></details>
+        <details class="guide-card"><summary data-ko="언제 전문가와 상의할까요?" data-en="When to seek professional help">언제 전문가와 상의할까요?</summary><p data-ko="잠들기 어렵거나 자주 깨는 문제가 주 3회 이상, 3개월 이상 지속되거나 낮 생활에 영향을 준다면 의료진과 상의해보세요." data-en="Consider talking with a clinician if trouble falling or staying asleep occurs at least 3 nights a week for 3 months or longer, or if it affects daytime functioning.">잠들기 어렵거나 자주 깨는 문제가 주 3회 이상, 3개월 이상 지속되거나 낮 생활에 영향을 준다면 의료진과 상의해보세요.</p><a href="https://www.nhlbi.nih.gov/health/insomnia/diagnosis" target="_blank" rel="noopener">NIH / NHLBI</a></details>
+      </section>
+    </section>
+
+    <section id="log" class="page">
+      <div class="page-heading"><button class="back-btn" data-go="home">‹</button><div><h2 data-ko="수면 기록" data-en="Sleep log">수면 기록</h2><p data-ko="어젯밤을 떠올리며 기록해 주세요." data-en="Record what you remember from last night.">어젯밤을 떠올리며 기록해 주세요.</p></div></div>
+      <form id="form">
+        <section class="surface form-section"><label class="field"><span data-ko="날짜" data-en="Date">날짜</span><input id="date" type="date" required></label></section>
+
+        <section class="surface form-section"><h3 data-ko="수면 시간" data-en="Sleep timing">수면 시간</h3><details class="why"><summary data-ko="왜 기록하나요?" data-en="Why log this?">왜 기록하나요?</summary><p data-ko="침대에 머문 시간, 실제 수면시간, 수면효율을 계산하고 수면·기상 일정의 패턴을 보기 위해 기록합니다." data-en="These times let the app calculate time in bed, total sleep time, sleep efficiency, and schedule patterns.">침대에 머문 시간, 실제 수면시간, 수면효율을 계산하고 수면·기상 일정의 패턴을 보기 위해 기록합니다.</p></details>
+          <div class="time-block"><span data-ko="누운 시간" data-en="Bed time">누운 시간</span><div class="time-picker" data-time="bed"></div></div>
+          <div class="time-block"><span data-ko="일어난 시간" data-en="Wake time">일어난 시간</span><div class="time-picker" data-time="wake"></div></div>
+        </section>
+
+        <section class="surface form-section"><h3 data-ko="밤 사이" data-en="During the night">밤 사이</h3><details class="why"><summary data-ko="왜 기록하나요?" data-en="Why log this?">왜 기록하나요?</summary><p data-ko="입면잠복기와 잠든 뒤 깨어 있던 시간은 불면 패턴과 수면의 연속성을 이해하는 데 중요한 지표입니다." data-en="Sleep latency and time awake after sleep onset help describe insomnia patterns and sleep continuity.">입면잠복기와 잠든 뒤 깨어 있던 시간은 불면 패턴과 수면의 연속성을 이해하는 데 중요한 지표입니다.</p></details>
+          <div class="number-row"><label><span data-ko="잠드는 데 걸린 시간" data-en="Sleep latency">잠드는 데 걸린 시간</span><small data-ko="분" data-en="min">분</small></label><input id="lat" type="number" min="0" max="720" value="0" required></div>
+          <div class="number-row"><label><span data-ko="중간에 깬 횟수" data-en="Awakenings">중간에 깬 횟수</span><small data-ko="회" data-en="times">회</small></label><input id="aw" type="number" min="0" max="50" value="0" required></div>
+          <div class="number-row"><label><span data-ko="깨어 있던 시간" data-en="Time awake">깨어 있던 시간</span><small data-ko="분" data-en="min">분</small></label><input id="waso" type="number" min="0" max="720" value="0" required></div>
+        </section>
+
+        <section class="surface form-section"><h3 data-ko="오늘 아침" data-en="This morning">오늘 아침</h3><details class="why"><summary data-ko="왜 기록하나요?" data-en="Why log this?">왜 기록하나요?</summary><p data-ko="같은 수면시간이어도 회복감과 기분은 다를 수 있습니다. 숫자만으로 보이지 않는 주관적 수면 경험을 함께 보기 위해 기록합니다." data-en="The same sleep duration can feel very different. Freshness and mood capture the subjective experience that timing alone cannot show.">같은 수면시간이어도 회복감과 기분은 다를 수 있습니다. 숫자만으로 보이지 않는 주관적 수면 경험을 함께 보기 위해 기록합니다.</p></details>
+          <div class="rating"><span data-ko="개운함" data-en="Freshness">개운함</span><div id="fresh" class="rating-buttons" data-value="3"></div></div>
+          <div class="rating"><span data-ko="기분" data-en="Mood">기분</span><div id="mood" class="rating-buttons" data-value="3"></div></div>
+        </section>
+
+        <section class="surface form-section"><h3 data-ko="생활 습관" data-en="Daily habits">생활 습관</h3><details class="why"><summary data-ko="왜 기록하나요?" data-en="Why log this?">왜 기록하나요?</summary><p data-ko="카페인, 음주, 낮잠, 운동을 수면기록과 함께 보면 나에게 반복해서 나타나는 연관성을 찾을 수 있습니다. 체크 자체는 좋고 나쁨의 판정이 아닙니다." data-en="Tracking caffeine, alcohol, naps, and exercise alongside sleep can reveal recurring associations. A checked item is not a judgment of good or bad.">카페인, 음주, 낮잠, 운동을 수면기록과 함께 보면 나에게 반복해서 나타나는 연관성을 찾을 수 있습니다. 체크 자체는 좋고 나쁨의 판정이 아닙니다.</p></details>
+          <div class="habit-grid">
+            <label class="habit"><input id="caf" type="checkbox"><span data-ko="카페인" data-en="Caffeine">카페인</span></label>
+            <label class="habit"><input id="alc" type="checkbox"><span data-ko="음주" data-en="Alcohol">음주</span></label>
+            <label class="habit"><input id="nap" type="checkbox"><span data-ko="낮잠" data-en="Nap">낮잠</span></label>
+            <label class="habit"><input id="ex" type="checkbox"><span data-ko="운동" data-en="Exercise">운동</span></label>
+          </div>
+        </section>
+
+        <section class="surface form-section"><h3 data-ko="수면위생 체크인" data-en="Sleep hygiene check-in">수면위생 체크인</h3><details class="why"><summary data-ko="왜 기록하나요?" data-en="Why log this?">왜 기록하나요?</summary><p data-ko="환경과 루틴을 매일 완벽하게 지키기 위한 점수가 아니라, 내 수면과 함께 반복되는 조건을 알아보기 위한 선택형 기록입니다." data-en="This is not a perfection score. It is an optional way to notice which environmental and routine conditions tend to occur with your sleep.">환경과 루틴을 매일 완벽하게 지키기 위한 점수가 아니라, 내 수면과 함께 반복되는 조건을 알아보기 위한 선택형 기록입니다.</p></details>
+          <div class="hygiene-list">
+            <label><input id="hySchedule" type="checkbox"><span data-ko="평소와 비슷한 시간에 자고 일어났어요" data-en="My sleep and wake times were fairly consistent">평소와 비슷한 시간에 자고 일어났어요</span></label>
+            <label><input id="hyBedOnly" type="checkbox"><span data-ko="침대는 주로 잠을 위해 사용했어요" data-en="I mostly used the bed for sleep">침대는 주로 잠을 위해 사용했어요</span></label>
+            <label><input id="hyComfort" type="checkbox"><span data-ko="방이 편안하고 어둡고 조용했어요" data-en="The room was comfortable, dark, and quiet">방이 편안하고 어둡고 조용했어요</span></label>
+            <label><input id="hyWindDown" type="checkbox"><span data-ko="잠들기 전 몸과 마음을 이완하는 시간을 가졌어요" data-en="I had a calming wind-down period">잠들기 전 몸과 마음을 이완하는 시간을 가졌어요</span></label>
+            <label><input id="hyScreen" type="checkbox"><span data-ko="취침 직전 자극적인 화면 사용을 줄였어요" data-en="I limited stimulating screen use close to bedtime">취침 직전 자극적인 화면 사용을 줄였어요</span></label>
+          </div>
+        </section>
+
+        <section class="surface form-section thought-section"><div class="thought-head"><div><h3 data-ko="수면에 대한 생각" data-en="Sleep thoughts">수면에 대한 생각</h3><p data-ko="걱정되는 생각이 있었을 때만 선택적으로 기록하세요." data-en="Optional. Use this only when a sleep-related thought or worry stood out.">걱정되는 생각이 있었을 때만 선택적으로 기록하세요.</p></div><label class="switch"><input id="thoughtEnabled" type="checkbox"><span></span></label></div>
+          <details class="why"><summary data-ko="왜 기록하나요?" data-en="Why log this?">왜 기록하나요?</summary><p data-ko="CBT-I의 인지치료는 잠에 대한 걱정이나 비현실적인 믿음을 발견하고, 근거와 반대 근거를 비교해 보다 균형 잡힌 생각을 만드는 데 초점을 둡니다." data-en="The cognitive part of CBT-I identifies unhelpful sleep-related beliefs and compares evidence for and against them to build a more balanced thought.">CBT-I의 인지치료는 잠에 대한 걱정이나 비현실적인 믿음을 발견하고, 근거와 반대 근거를 비교해 보다 균형 잡힌 생각을 만드는 데 초점을 둡니다.</p></details>
+          <div id="thoughtFields" class="thought-fields hidden">
+            <label class="field"><span data-ko="떠오른 생각" data-en="Thought">떠오른 생각</span><textarea id="thoughtText" rows="3"></textarea></label>
+            <label class="field"><span data-ko="이 생각을 얼마나 사실이라고 느꼈나요? (0–10)" data-en="How true did this thought feel? (0–10)">이 생각을 얼마나 사실이라고 느꼈나요? (0–10)</span><input id="beliefBefore" type="range" min="0" max="10" value="5"><output id="beliefBeforeOut">5</output></label>
+            <div class="two-fields"><label class="field"><span data-ko="감정" data-en="Emotion">감정</span><input id="emotion" type="text" placeholder="불안 / Anxiety"></label><label class="field"><span data-ko="강도 (0–100%)" data-en="Intensity (0–100%)">강도 (0–100%)</span><input id="emotionIntensity" type="number" min="0" max="100" value="50"></label></div>
+            <label class="field"><span data-ko="가까운 사고 패턴" data-en="Closest thinking pattern">가까운 사고 패턴</span><select id="distortion"><option value="">-</option><option value="misattribution">잘못된 원인 탓하기 / Misattribution</option><option value="emotional">감정적 추론 / Emotional reasoning</option><option value="blackwhite">흑백논리 / All-or-nothing thinking</option><option value="fortune">예언하기 / Fortune telling</option><option value="catastrophe">파국화 / Catastrophizing</option><option value="generalization">과잉 일반화 / Overgeneralization</option><option value="expectation">비현실적 기대·통제 / Unrealistic expectation or control</option><option value="other">기타 / Other</option></select></label>
+            <label class="field"><span data-ko="이 생각을 지지하는 근거" data-en="Evidence for the thought">이 생각을 지지하는 근거</span><textarea id="evidenceFor" rows="2"></textarea></label>
+            <label class="field"><span data-ko="반대되는 근거" data-en="Evidence against the thought">반대되는 근거</span><textarea id="evidenceAgainst" rows="2"></textarea></label>
+            <label class="field"><span data-ko="좀 더 균형 잡힌 생각" data-en="More balanced thought">좀 더 균형 잡힌 생각</span><textarea id="balancedThought" rows="3"></textarea></label>
+            <label class="field"><span data-ko="지금은 얼마나 사실이라고 느끼나요? (0–10)" data-en="How true does it feel now? (0–10)">지금은 얼마나 사실이라고 느끼나요? (0–10)</span><input id="beliefAfter" type="range" min="0" max="10" value="5"><output id="beliefAfterOut">5</output></label>
+          </div>
+        </section>
+
+        <section id="preview" class="calculation"></section>
+        <label class="share-toggle"><input id="share" type="checkbox"><span><b data-ko="파트너 공유용 표시" data-en="Mark for partner sharing">파트너 공유용 표시</b><small data-ko="원할 때 이 기록만 공유할 수 있어요." data-en="Share only this entry when you choose.">원할 때 이 기록만 공유할 수 있어요.</small></span></label>
+        <button class="save-btn" type="submit" data-ko="수면 기록 저장" data-en="Save sleep log">수면 기록 저장</button>
+      </form>
+    </section>
+
+    <section id="settings" class="page">
+      <div class="page-heading"><div><h2 data-ko="설정" data-en="Settings">설정</h2><p data-ko="내 수면 기록 방식과 백업을 관리합니다." data-en="Manage tracking preferences and backups.">내 수면 기록 방식과 백업을 관리합니다.</p></div></div>
+      <section class="surface settings-list">
+        <label><span><b data-ko="언어" data-en="Language">언어</b></span><select id="language"><option value="ko">한국어</option><option value="en">English</option></select></label>
+        <label><span><b data-ko="시간대" data-en="Timezone">시간대</b></span><select id="timezone"><option value="Asia/Seoul">Seoul · Asia/Seoul</option><option value="America/Chicago">Tennessee · Central</option></select></label>
+        <div class="setting-row"><span><b data-ko="고정 기상 시간" data-en="Fixed wake time">고정 기상 시간</b></span><div class="time-picker compact-picker" data-time="fixed"></div></div>
+        <label><span><b data-ko="취침 계산 기준" data-en="Bedtime calculation">취침 계산 기준</b><small data-ko="최근 기록 수" data-en="Recent logs">최근 기록 수</small></span><input id="window" type="number" min="3" max="14" value="5"></label>
+        <button id="saveSettings" class="save-btn" data-ko="설정 저장" data-en="Save settings">설정 저장</button>
+      </section>
+      <section class="surface utility"><h3 data-ko="백업 및 복원" data-en="Backup & restore">백업 및 복원</h3><p id="backupStatus"></p><button id="exportBtn" class="secondary-btn" data-ko="전체 백업 내보내기" data-en="Export full backup">전체 백업 내보내기</button><label class="file-btn"><span data-ko="백업 불러오기" data-en="Import backup">백업 불러오기</span><input id="importFile" type="file" accept="application/json"></label></section>
+      <section class="surface utility"><h3 data-ko="파트너 공유" data-en="Partner sharing">파트너 공유</h3><p data-ko="공유 표시한 가장 최근 기록을 휴대폰 공유 메뉴로 보냅니다." data-en="Send the latest marked entry through your phone's share menu.">공유 표시한 가장 최근 기록을 휴대폰 공유 메뉴로 보냅니다.</p><button id="shareBtn" class="secondary-btn" data-ko="최근 공유 기록 보내기" data-en="Share latest marked log">최근 공유 기록 보내기</button></section>
+    </section>
+  </main>
+
+  <nav class="bottom-nav"><button class="active" data-go="home"><span data-ko="홈" data-en="Home">홈</span></button><button data-go="log"><span data-ko="기록" data-en="Log">기록</span></button><button data-go="settings"><span data-ko="설정" data-en="Settings">설정</span></button></nav>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
